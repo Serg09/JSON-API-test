@@ -9,12 +9,101 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <body>
     
+    <div id="addButton">Get JSON from Web</div>
+    <div id="output"></div>
+
+    <!-- <div id="addButton">Add to Storage</div>
+    <div id="seeButton">View Storage</div>
+    <input type="text" id="firstName">
+    <input type="text" id="lastName"> -->
     <script>
 
-        var myJSON = {"name":"Sergey", "age":40}; // valid JSON
-        var myJSON = {name:"Sergey", age:40}; //no valid JSON (valid Javascript)
-        var myObj = function(){return 'Hello}'};
-        var myObj1 = {'test':function(){return 'Hello'}};
+// -- 2 Get JSON data from online file
+
+        const addButton = document.getElementById("addButton");
+        addButton.addEventListener('click', addJSON);
+        const output = document.querySelector('#output');
+
+        function addJSON() {
+            console.log('clicked');
+            output.innerHTML = "WORKING"; // update HTML whenewher we invoke .
+            const url = "https://api.npoint.io/fd7522dfc3625b8881e5";
+            fetch(url)
+            .then(function(response) {
+                console.log(response.status);
+                // return response.text()
+                return response.json() // instead of `text` do `json` and it will transform into json format
+            })
+            .then(function(data){
+                // console.log(data);
+                // console.log(JSON.parse(data)); // no need do `parse` here as we already call json format in `return response.json()`
+
+                // var node = document.createElement("P"); 
+                // var t = document.createTextNode(JSON.stringify(data)); 
+                // node.appendChild(t); 
+                // document.getElementById("output").appendChild(node);   
+                // console.log(node);
+
+                var obj = data;
+                var myJSON = JSON.stringify(obj);
+                document.getElementById("output").innerHTML = myJSON;
+                console.log(JSON.parse(myJSON));
+                
+              
+            })
+        }
+        
+// -- 2 --
+
+
+
+
+// -- 1 -- Use of `stringify` and `parse` in local database
+        // document.getElementById("addButton").addEventListener('click', addToStorage);
+        // document.getElementById("seeButton").addEventListener('click', viewStorage);
+        // // var myJSON = {"first":"Sergey", "last":"Skumatov"};
+        
+        // // way to hold the storage contant. It returns all data from storage in object view
+        // const people = JSON.parse(localStorage.getItem('tester1')) || {"first":"none", "last":"none"}
+        // console.log(people);
+
+
+        // // The way how to store data localy in JSON format
+        // function addToStorage() {
+        //     let tempFirst = document.getElementById("firstName").value;
+        //     let tempLast = document.getElementById("lastName").value;
+        //     let myObj = JSON.stringify({
+        //         "first":tempFirst, 
+        //         "last":tempLast,
+        //     });
+        //     console.log(myObj);
+        //     // var myJSON = {"first":"Sergey", "last":"Skumatov"};
+        //     localStorage.setItem('tester1',myObj);
+        //     // console.log('Clicked' + myObj);
+        // }
+        // function viewStorage() {
+        //     let tempHolder = JSON.parse(localStorage.getItem('tester1')) || people;
+        //     console.log(tempHolder);
+        // }
+// -- 1 -- 
+
+
+
+
+        // var myJSON = {"first":"Sergey", "last":"Skumatov"};
+        // console.log(myJSON);
+        // var myJSONstring = JSON.stringify(myJSON); // `strinify` converts object into the string
+        // console.log(myJSONstring);
+        // var myJSONparsed = JSON.parse(myJSONstring); // `parsed` retrun back to object
+        // myJSONparsed.first = "Diana";
+        // console.log(myJSONparsed);
+        // var sendData = JSON.stringify(myJSONparsed);
+        // console.log(sendData);
+
+        // var myJSON = {"name":"Sergey", "age":40}; // valid JSON
+        // var myJSON = {name:"Sergey", age:40}; //no valid JSON (valid Javascript)
+        // var myObj = function(){return 'Hello}'};
+        // var myObj1 = {'test':function(){return 'Hello'}};
 
         // var tString = "Hello";
         // var tString2 = 'Hello';
