@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <title>Json API</title>
 </head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <body>
-    
     <div id="addButton">Get JSON from Web</div>
-    <div id="output"></div>
+    <div class = flex-container>
+
+        <div id="output"></div>
+        <br>
+        First: <div id="first"></div>
+        <br>
+        Last: <div id="last"></div>
+        <br>
+        Age: <div id="age"></div>
+        <br>
+        City: <div id="city"></div>
+    </div>
 
     <!-- <div id="addButton">Add to Storage</div>
     <div id="seeButton">View Storage</div>
@@ -26,17 +38,56 @@
 
         function addJSON() {
             console.log('clicked');
-            output.innerHTML = "WORKING"; // update HTML whenewher we invoke .
+            // output.innerHTML = "WORKING"; // update HTML whenewher we invoke .
             const url = "https://api.npoint.io/fd7522dfc3625b8881e5";
             fetch(url)
+            
             .then(function(response) {
                 console.log(response.status);
                 // return response.text()
                 return response.json() // instead of `text` do `json` and it will transform into json format
+                
             })
             .then(function(data){
                 // console.log(data);
                 // console.log(JSON.parse(data)); // no need do `parse` here as we already call json format in `return response.json()`
+
+
+                // let tFirst = document.getElementById("first").data;
+                // let tLast = document.getElementById("last").value;
+                // let tAge = document.getElementById("age").value;
+                // let tCity = document.getElementById("city").value;
+                // let myData = {"first":tFirst, "last":tLast, "age":tAge, "city":tCity};
+                // console.log(myData);
+
+                // First
+                var node = document.createElement("F"); 
+                var f = document.createTextNode(data.first); 
+                node.appendChild(f); 
+                document.getElementById("first").appendChild(node);   
+                console.log(node);
+
+                // Last
+                var node = document.createElement("L"); 
+                var l = document.createTextNode(data.last); 
+                node.appendChild(l); 
+                document.getElementById("last").appendChild(node);   
+                console.log(node);
+
+                // Age
+                var node = document.createElement("A"); 
+                var a = document.createTextNode(data.age); 
+                node.appendChild(a); 
+                document.getElementById("age").appendChild(node);   
+                console.log(node);
+
+                // City
+                var node = document.createElement("C"); 
+                var c = document.createTextNode(data.city); 
+                node.appendChild(c); 
+                document.getElementById("city").appendChild(node);   
+                console.log(node);
+
 
                 // var node = document.createElement("P"); 
                 // var t = document.createTextNode(JSON.stringify(data)); 
@@ -44,11 +95,11 @@
                 // document.getElementById("output").appendChild(node);   
                 // console.log(node);
 
-                var obj = data;
-                var myJSON = JSON.stringify(obj);
-                document.getElementById("output").innerHTML = myJSON;
-                console.log(JSON.parse(myJSON));
-                
+                // var obj = data;
+                // var myJSON = JSON.stringify(obj);
+                // document.getElementById("output").innerHTML = JSON.parse(myJSON);
+                // // console.log(myJSON.canApprove);
+                // console.log(JSON.parse(myJSON));
               
             })
         }
