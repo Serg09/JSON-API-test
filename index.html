@@ -9,10 +9,13 @@
     <title>Json API</title>
 </head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<body>
-    <div id="addButton">Get JSON from Web</div>
-    <div class = flex-container>
 
+<body>
+    <div id="addButton">Get User</div>
+    <div id="testButton">Test Map</div>
+    <div id="output"></div>
+
+    <!-- <div class = flex-container>
         <div id="output"></div>
         <br>
         First: <div id="first"></div>
@@ -22,7 +25,7 @@
         Age: <div id="age"></div>
         <br>
         City: <div id="city"></div>
-    </div>
+    </div> -->
 
     <!-- <div id="addButton">Add to Storage</div>
     <div id="seeButton">View Storage</div>
@@ -34,16 +37,32 @@
 
         const addButton = document.getElementById("addButton");
         addButton.addEventListener('click', addJSON);
+
+        const testButton = document.getElementById("testButton");
+        testButton.addEventListener('click', tester);
+        function tester() {
+            console.log('clicked');
+            let tempArray = [4,5,6,7,8,11];
+            const html = tempArray.map(function(val,i){
+                // return val * 2 + i;
+                    return '<li>' + i + ' = ' + (val * 2) + '</li>'; // list it
+                })
+                console.log(html.join(""));
+                output.innerHTML = '<ul>' + html.join("") + '</ul';
+            }
+
         const output = document.querySelector('#output');
 
         function addJSON() {
-            console.log('clicked');
+            // console.log('clicked');
             // output.innerHTML = "WORKING"; // update HTML whenewher we invoke .
-            const url = "https://api.npoint.io/fd7522dfc3625b8881e5";
+            // const url = "https://api.npoint.io/fd7522dfc3625b8881e5"; // this API npoint (Diana's data - First, Last, Age, City)
+            // const url = "https://randomuser.me/api/?results=1"; // One user
+            const url = "https://randomuser.me/api/?results=10"; // Ten Users
             fetch(url)
             
             .then(function(response) {
-                console.log(response.status);
+                // console.log(response.status);
                 // return response.text()
                 return response.json() // instead of `text` do `json` and it will transform into json format
                 
@@ -52,41 +71,55 @@
                 // console.log(data);
                 // console.log(JSON.parse(data)); // no need do `parse` here as we already call json format in `return response.json()`
 
+                // Data from RandomUser
+                let people = data.results;
 
-                // let tFirst = document.getElementById("first").data;
-                // let tLast = document.getElementById("last").value;
-                // let tAge = document.getElementById("age").value;
-                // let tCity = document.getElementById("city").value;
-                // let myData = {"first":tFirst, "last":tLast, "age":tAge, "city":tCity};
-                // console.log(myData);
+                // API, random Users
+                console.log(people);
+                const html = people.map(function(val,i){
+                    console.log(people);
+                    return '<li>' + (i+1) + ". " + val.name.first + ", " + val.name.last + ". email: " + val.email + '</li>'; // list it
+                })
+                output.innerHTML = '<ul>' + html.join("") + '</ul';
 
-                // First
-                var node = document.createElement("F"); 
-                var f = document.createTextNode(data.first); 
-                node.appendChild(f); 
-                document.getElementById("first").appendChild(node);   
-                console.log(node);
+                
+                // // For One Person API
+                // console.log(people[0].name.first); // For One Person API
+                // output.innerHTML = "First Name: " + people[0].name.first+ "<br> Last Name: " + people[0].name.last;
 
-                // Last
-                var node = document.createElement("L"); 
-                var l = document.createTextNode(data.last); 
-                node.appendChild(l); 
-                document.getElementById("last").appendChild(node);   
-                console.log(node);
 
-                // Age
-                var node = document.createElement("A"); 
-                var a = document.createTextNode(data.age); 
-                node.appendChild(a); 
-                document.getElementById("age").appendChild(node);   
-                console.log(node);
 
-                // City
-                var node = document.createElement("C"); 
-                var c = document.createTextNode(data.city); 
-                node.appendChild(c); 
-                document.getElementById("city").appendChild(node);   
-                console.log(node);
+                // // DATA from saved file
+                // // First
+                // var node = document.createElement("F"); 
+                // var f = document.createTextNode(data.first); 
+                // node.appendChild(f); 
+                // document.getElementById("first").appendChild(node);   
+                // console.log(node);
+
+                // // Last
+                // var node = document.createElement("L"); 
+                // var l = document.createTextNode(data.last); 
+                // node.appendChild(l); 
+                // document.getElementById("last").appendChild(node);   
+                // console.log(node);
+
+                // // Age
+                // var node = document.createElement("A"); 
+                // var a = document.createTextNode(data.age); 
+                // node.appendChild(a); 
+                // document.getElementById("age").appendChild(node);   
+                // console.log(node);
+
+                // // City
+                // var node = document.createElement("C"); 
+                // var c = document.createTextNode(data.city); 
+                // node.appendChild(c); 
+                // document.getElementById("city").appendChild(node);   
+                // console.log(node);
+
+                // OR THIS ONE FOR innerHTML
+                // output.innerHTML = "First Name: " + data.first + ", Last Name: " + data.last + ", Age: " + data.age + ", City: " + data.city;
 
 
                 // var node = document.createElement("P"); 
