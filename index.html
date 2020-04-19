@@ -51,7 +51,11 @@
                 output.innerHTML = '<ul>' + html.join("") + '</ul';
             }
 
-        const output = document.querySelector('#output');
+            String.prototype.capitalize = function(){
+                return this.charAt(0).toUpperCase() + this.slice(1); // takes first simbol (0) and capitilize
+            }
+            
+            const output = document.querySelector('#output');
 
         function addJSON() {
             // console.log('clicked');
@@ -77,8 +81,15 @@
                 // API, random Users
                 console.log(people);
                 const html = people.map(function(val,i){
+                    // let firstName = val.name.first.toUpperCase(); // create new variable with all Upper case
+                    // let lastName = val.name.last.toUpperCase();
+                    let firstName = val.name.first.capitalize(); // replace Upper case with created Capitilize function
+                    let lastName = val.name.last.capitalize();
+
                     console.log(people);
-                    return '<li>' + (i+1) + ". " + val.name.first + ", " + val.name.last + ". email: " + val.email + '</li>'; // list it
+                    // return '<li>' + (i+1) + ". " + val.name.first + ", " + val.name.last + ". email: " + val.email + '</li>'; // list it
+                    // in this 'return' we changed val.name.last/first with new variable with upper case
+                    return '<li>' + (i+1) + ". " + firstName + ", " + lastName + ". email: " + val.email.bold() + '</li>'; // list it
                 })
                 output.innerHTML = '<ul>' + html.join("") + '</ul';
 
