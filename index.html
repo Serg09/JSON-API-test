@@ -58,11 +58,16 @@
             const output = document.querySelector('#output');
 
         function addJSON() {
+
+            const id = "2PACX-1vSihcartuV8weN7op_Ys_1VEOTsHQ2DNiB3Va8xut62ai7qk9C9jgve9-nANYRe1yJzr6mnlTmeVIh3";
+            const url2 = "https://spreadsheets.google.com/feed/list/" + id + "/od6/public/basic?alt=json";
             // console.log('clicked');
             // output.innerHTML = "WORKING"; // update HTML whenewher we invoke .
             // const url = "https://api.npoint.io/fd7522dfc3625b8881e5"; // this API npoint (Diana's data - First, Last, Age, City)
             // const url = "https://randomuser.me/api/?results=1"; // One user
-            const url = "https://randomuser.me/api/?results=10"; // Ten Users
+            const url = "https://randomuser.me/api/?results=5"; // Generated Users
+            
+            output.innerHTML = ''; //clear page everytime when Get User clicked
             fetch(url)
             
             .then(function(response) {
@@ -79,19 +84,30 @@
                 let people = data.results;
 
                 // API, random Users
+                console.log(data);
                 console.log(people);
-                const html = people.map(function(val,i){
+                // const html = people.map(function(val,i){
+                return people.map(function(val,i){ // instead of maping in to HTML (line above) will build directly with HTML
                     // let firstName = val.name.first.toUpperCase(); // create new variable with all Upper case
                     // let lastName = val.name.last.toUpperCase();
+                    let div = document.createElement('div');
+                    let img = document.createElement('img');
+                    let span = document.createElement('span');
                     let firstName = val.name.first.capitalize(); // replace Upper case with created Capitilize function
                     let lastName = val.name.last.capitalize();
+                    img.src = val.picture.thumbnail;
+                    span.innerHTML =  (i+1) + ". " + firstName + ", " + lastName + ". email: " + val.email.bold();
+                    div.append(span);
+                    div.appendChild(img);
+                    output.appendChild(div);
 
-                    console.log(people);
+                    // console.log(people);
                     // return '<li>' + (i+1) + ". " + val.name.first + ", " + val.name.last + ". email: " + val.email + '</li>'; // list it
                     // in this 'return' we changed val.name.last/first with new variable with upper case
-                    return '<li>' + (i+1) + ". " + firstName + ", " + lastName + ". email: " + val.email.bold() + '</li>'; // list it
+                    // return '<div>' + (i+1) + ". " + firstName + ", " + lastName + ". email: " + val.email.bold() + '</div>'; // list it
+                    // output.innerHTML = '<div>' + (i+1) + ". " + firstName + ", " + lastName + ". email: " + val.email.bold() + '</div>'; // list it
                 })
-                output.innerHTML = '<ul>' + html.join("") + '</ul';
+                // output.innerHTML = '<ul>' + html.join("") + '</ul'; // was used with const.html
 
                 
                 // // For One Person API
@@ -145,6 +161,9 @@
                 // // console.log(myJSON.canApprove);
                 // console.log(JSON.parse(myJSON));
               
+            })
+            .catch(function(error) { // showing error in a console
+                console.log(error);
             })
         }
         
